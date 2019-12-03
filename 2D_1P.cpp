@@ -10,16 +10,15 @@ const int L = 100;
 
 //----- Function Declarations ----- |
 int random_walk(int xi, int trails);
-void draw(int balls[][2]);
+void draw(int *balls);
 
 //----- MAIN ----- |
 int main(void)
 {
     // Initialize
-    int Mol[Nmol][2]; // A list with x and y position of all molecules
-    for(int i = 0; i < Nmol; ++i) {
-        Mol[i][0] = 0; 
-        Mol[i][1] = 0;
+    int *Mol= new int[Nmol * 2]; // A list with x and y position of all molecules
+    for(int i = 0; i < 2 * Nmol; ++i) {
+        Mol[i] = 0; 
     }
 
     // Init random generator
@@ -34,20 +33,21 @@ int main(void)
         double r2 = dis(gen);
         if (p > r1){ // Moves in x
             if (p > r2){ // Moves to right
-                Mol[i][0]++;
+                Mol[i*2]++;
             } else { // Moves to left
-                Mol[i][0]--;
+                Mol[i*2]--;
             }
         } else { // Moves in y
             if (p > r2){ // Moves up
-                Mol[i][1]++;
+                Mol[i*2 + 1]++;
             } else { // Moves to down
-                Mol[i][1]--;
+                Mol[i*2 + 1]--;
             }
         }
     }
     draw(Mol);
 
+    delete [] Mol;
 
     return 0;
 }
@@ -71,7 +71,7 @@ int random_walk(int xi, int Tmax)
     }
     return x;
 }
-void draw(int balls[][2])
+void draw(int *balls)
 {
     // Init lattice
     int Lattice[L][L];
@@ -81,7 +81,7 @@ void draw(int balls[][2])
     
     // Insert balls
     for(int i = 0; i < Nmol; ++i) {
-        Lattice[balls[i][0] + L/2][balls[i][1] + L/2]++;
+        Lattice[balls[i*2] + L/2][balls[i*2 + 1] + L/2]++;
     }
 
     // Output in pm3d map format
