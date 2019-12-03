@@ -4,7 +4,7 @@
 
 //----- Global Constants ----- |
 const double p = 0.7;
-const int N = 100;
+const int Ntrails = 1000;
 const int v = 1; //Number of steps that a particle move each step.  
 
 
@@ -14,7 +14,7 @@ int random_walk(int xi, int trails);
 //----- MAIN ----- |
 int main(void)
 {
-    for (int Ntrails = 1; Ntrails < 1000; Ntrails++){
+    for (int N = 1; N < 1000; N++){
         double x_prom= 0, x2_prom = 0;
         for(int ti = 0; ti < Ntrails; ti++){
             int trail = random_walk(0, N); 
@@ -26,9 +26,9 @@ int main(void)
 
         double dx2 = x2_prom - (x_prom*x_prom);
 
-        std::cout << x_prom << std::endl;
+        //std::cout << x_prom << std::endl;
         //std::cout << x2_prom << std::endl;
-        //std::cout << dx2 << std::endl;
+        std::cout << dx2 << std::endl;
     }
     return 0;
 }
@@ -44,7 +44,7 @@ int random_walk(int xi, int Tmax)
 
     for(int t=0; t<Tmax; ++t) {
         double r = dis(gen);
-        if (p < r){
+        if (p > r){
             x++;
         } else {
             x--;
