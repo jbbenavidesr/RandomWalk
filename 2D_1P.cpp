@@ -7,9 +7,10 @@ const double p = 0.5;
 const int Nmol = 1;
 const int v = 1; //Number of steps that a particle move each step.
 const int L = 100;
+const int T = 100;
 
 //----- Function Declarations ----- |
-int random_walk(int xi, int trails);
+void random_step(int *Mol);
 void draw(int *balls);
 
 //----- MAIN ----- |
@@ -20,7 +21,21 @@ int main(void)
     for(int i = 0; i < 2 * Nmol; ++i) {
         Mol[i] = 0; 
     }
+    for(int t=0; t < T; ++t)
+        random_step(Mol);
+    draw(Mol);
 
+    delete [] Mol;
+
+    return 0;
+}
+
+//----- FUNCTIONS ----- |
+void random_step(int *Mol)
+{
+    /*
+     * Performs a random step.
+     */ 
     // Init random generator
     std::random_device rd; //Random seed 
     std::mt19937 gen(rd());
@@ -45,31 +60,6 @@ int main(void)
             }
         }
     }
-    draw(Mol);
-
-    delete [] Mol;
-
-    return 0;
-}
-
-//----- FUNCTIONS ----- |
-int random_walk(int xi, int Tmax)
-{
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(0, 1);
-
-    int x = xi; //Initial position of the particle.
-
-    for(int t=0; t<Tmax; ++t) {
-        double r = dis(gen);
-        if (p > r){
-            x++;
-        } else {
-            x--;
-        }
-    }
-    return x;
 }
 void draw(int *balls)
 {
