@@ -4,7 +4,7 @@
 
 //----- Global Constants ----- |
 const double p = 0.5;
-const int Nmol = 1;
+const int Nmol = 5;
 const int v = 1; //Number of steps that a particle move each step.
 const int L = 100;
 const int T = 100;
