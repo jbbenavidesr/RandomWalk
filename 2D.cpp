@@ -4,10 +4,10 @@
 
 //----- Global Constants ----- |
 const double p = 0.5;
-const int Nmol = 5;
+const int Nmol = 20;
 const int v = 1; //Number of steps that a particle move each step.
 const int L = 100;
-const int T = 100;
+const int T = 100000;
 
 //----- Function Declarations ----- |
 void random_step(int *Mol);
@@ -49,14 +49,18 @@ void random_step(int *Mol)
         if (p > r1){ // Moves in x
             if (p > r2){ // Moves to right
                 Mol[i*2]++;
+                if (Mol[i*2] == (L/2)) Mol[i*2] = -L/2 + 1;
             } else { // Moves to left
                 Mol[i*2]--;
+                if (Mol[i*2] == -(L/2)) Mol[i*2] = L/2 - 1;
             }
         } else { // Moves in y
             if (p > r2){ // Moves up
                 Mol[i*2 + 1]++;
+                if (Mol[i*2 + 1] == (L/2)) Mol[i*2 + 1] = -L/2 + 1;
             } else { // Moves to down
                 Mol[i*2 + 1]--;
+                if (Mol[i*2 + 1] == -(L/2)) Mol[i*2 + 1] = L/2 - 1;
             }
         }
     }
